@@ -2,6 +2,9 @@
  * File: main.c
  * -------------
  * Main. 
+ * 
+ * Created by Kai Marshland and Andrew Milich in Spring 2016. 
+ * Tested on a Raspberry Pi 1. 
  */
 
 #include "gl.h"
@@ -71,10 +74,8 @@ void task_init() {
         for (int ii = 0; ii < 9; ii ++) {
             if (init_counter == ii) {
                 init_counter ++;
-                if (ii < 5)
-                    run_thread(image_thread, 1, 2, ii);
-                else
-                    run_thread(image_thread, 1, 2, ii);
+                if (ii < 5) run_thread(image_thread, 1, 2, ii);
+                else run_thread(image_thread, 1, 2, ii);
             }
         }
     }
@@ -101,7 +102,7 @@ void task_init_shapes() {
     run_thread_coop(window_bounce, 2);
 
     while (1) {
-        yield();
+        yield(); // Run the shape threads infinitely 
     }
 }
 
