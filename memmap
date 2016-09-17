@@ -1,0 +1,40 @@
+MEMORY
+{
+    ram : ORIGIN = 0x8000,
+          LENGTH = 0x08000000
+}
+
+SECTIONS
+{
+    .text : {
+        __text_start__ = .;
+        start.o (.text)
+        *(.text*)
+        __text_end__ = .;
+    } > ram
+    .data : { *(.data*) } > ram
+    .rodata : { *(.rodata*) } > ram
+    __bss_start__ = .;
+    .bss : {
+        *(.bss*)
+    } > ram
+    . = ALIGN(8);
+    __bss_end__ = .;
+    __thread_start__ = .;
+    .thread : {
+        . += 4194240;
+    } > ram
+    . = ALIGN(32);
+    __thread_manager__ = .;
+    .thread_manager : {
+        . += 32768;
+    } > ram
+    . = ALIGN(32);
+    __thread_end__ = .;
+    __window_start__ = .;
+    .windows : {
+        . += 32768;
+    } > ram
+    . = ALIGN(32);
+    __heap_start__ = .;
+}
